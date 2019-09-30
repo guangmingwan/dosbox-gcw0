@@ -1,11 +1,10 @@
 #!/bin/sh
-
-./configure --host=mipsel-linux --disable-opengl --disable-alsa-midi --disable-dynamic-x86 --disable-fpu-x86 --enable-core-inline CXXFLAGS="-g -O2 -G0 -march=mips32 -mtune=mips32 -pipe -fno-builtin -fno-common -mno-shared -ffast-math -fomit-frame-pointer -fexpensive-optimizations -frename-registers" LIBS="-lSDL_gfx -lSDL_image"
+./configure --host=mipsel-linux --disable-opengl --disable-alsa-midi --disable-dynamic-x86 --disable-fpu-x86 --enable-core-inline CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0 -g -O2 -G0 -march=mips32 -mtune=mips32 -pipe -fno-builtin -fno-common -mno-shared -ffast-math -fomit-frame-pointer -fexpensive-optimizations -frename-registers" LIBS="-lpng -ltiff -ljpeg -lSDL_gfx -lSDL_image"
 
 OLD="\/\* #undef C_ATTRIBUTE_ALWAYS_INLINE \*\/"
 NEW="#define C_ATTRIBUTE_ALWAYS_INLINE 1"
 sed -i "s/$OLD/$NEW/g" config.h
-
+#sed -i "s/#define DB_HAVE_NO_POWF 1//g" config.h
 OLD="\/\* #undef C_DYNREC \*\/"
 NEW="#define C_DYNREC 1"
 sed -i "s/$OLD/$NEW/g" config.h
